@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Sort test</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+
+<div id="app">
+
+Enter Size of Array : 
+
+<input type="text" name="text" v-model="n" v-on:keyup.enter="generate">
+<button v-on:click="actualsort()">Sort Using Bubble Sort</button>
+
+
+<div id="myDiv">
+	<br>
+	<br>
+	<br>
+	<div v-for="item in pips">
+	 <div v-bind:style="{ 'background-color' : myc , 'width' : item+'px'  ,
+	 'height' : 4+'px'}">
+	 </div>
+	 <div v-bind:style="{ 'height' : 2+'px'  , 'color' : spacecolor}">.</div>
+</div>
+<br>
+<br>
+<div v-for="item in ar">
+	 <div v-bind:style="{ 'background-color' : myc , 'width' : item+'px'  ,
+	 'height' : 4+'px'}">
+	 </div>
+	 <div v-bind:style="{ 'height' : 2+'px'  , 'color' : spacecolor}">.</div>
+</div>
+
+
+</div>
+
+
+<br>
+<br>
+
+
+</div>
+
+<script>
+	var app = new Vue({
+		el : "#app",
+		data : {
+			ar : [],
+			pips:[] ,
+			n  : 100,
+			myc : 'red',
+			i : 0 ,
+			j : 0 ,
+			i2 : 0 ,
+			j2 : 1 ,
+			spacecolor : 'white',
+			minimum : 0
+		},
+		methods : {
+			generate()
+			{
+				var test=[] ;
+			var test2=[] ;
+				for(var i =0 ; i<this.n ; ++i)
+				{
+					var x=40*(Math.random()*10+1) ;
+					test.push(x);
+					test2.push(x);
+				}
+				this.ar=test; 
+				this.pips=test2;
+				
+			},
+			sort()
+			{
+				var test=[] ;
+				test=this.ar ;
+				for(; this.i<this.n-1 ; this.i++)
+				{
+					for(; this.j<this.n-this.i-1 ;this.j++)
+					{
+						if(test[this.j]<test[this.j+1])
+						{
+							var temp = test[this.j];
+							Vue.set(app.ar,this.j,test[this.j+1]);
+							Vue.set(app.ar,this.j+1,temp);
+							sleep(4);
+						}
+
+
+					}
+					
+				}
+
+				// Vue.set(app.ar,0,8);
+			},
+			sort2()
+			{
+				var test=[] ;
+				test=this.pips ;
+				for(; this.i2<this.n-1 ; this.i2++)
+				{
+					for(; this.j2<this.n-this.i2-1 ;this.j2++)
+					{
+						if(test[this.j2]>test[this.j2+1])
+						{
+							var temp = test[this.j2];
+							Vue.set(app.pips,this.j2,test[this.j2+1]);
+							Vue.set(app.pips,this.j2+1,temp);
+							sleep(4);
+						}
+
+
+					}
+					
+				}
+			} ,
+			async sortreal1()
+			{
+				this.sort();
+			    this.i=0;
+			    this.j=0;
+			},
+			async sortreal2()
+			{
+				this.sort2();
+				this.i2=0;
+				this.j2=0;
+			},
+			actualsort()
+			{
+				setInterval(() => {
+
+					let promises = [this.sortreal1() ,this.sortreal2()];
+					Promises.all(promises)
+					.then()
+					.catch((err)=>console.log(err));
+			    }, 4)
+			 
+			}
+
+		},
+		mounted()
+		{
+			var test=[] ;
+			var test2=[] ;
+				for(var i =0 ; i<this.n ; ++i)
+				{
+					var x=40*(Math.random()*10+1) ;
+					test.push(x);
+					test2.push(x);
+				}
+				this.ar=test; 
+				this.pips=test2;
+		}
+	})
+</script>
+
+<style>
+
+/*div {
+  width: 300px;
+  height: 100px;
+  background-color: yellow;
+  border: 1px solid black;
+}*/
+
+div#myDiv {
+  -ms-transform: rotate(-90deg); /* IE 9 */
+  transform: rotate(-90deg); /* Standard syntax */
+  width: 500px;
+  height: 580px;
+}
+</style>
+
+</body>
+</html>
